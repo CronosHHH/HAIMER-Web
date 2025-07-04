@@ -1,0 +1,141 @@
+{
+    "elementStyling": {
+      "page": {
+        "background": {
+          "default": "var(--palette-primaryBackground)",
+          "comment": "Global background for all pages like Landing, Main Chat, etc."
+        }
+      },
+      "text": {
+        "headingPrimary": {
+          "color": "var(--palette-textPrimary)",
+          "comment": "For main titles, e.g., the 'HAIMER' branding."
+        },
+        "personalizedGreeting": {
+          "background": "var(--gradients-greetingText)",
+          "comment": "Gradient text style for 'Hola, Renato'. Uses a background clip-to-text effect."
+        },
+        "bodyText": {
+          "color": "var(--palette-textSecondary)",
+          "comment": "For descriptive text, e.g., 'La ley es razón libre de pasión.— Aristóteles'."
+        },
+        "link": {
+          "color": "var(--palette-interactiveBlue)",
+          "hover": {
+            "color": "var(--palette-interactiveBlueHover)"
+          },
+          "comment": "For standalone links like 'Actualizar ubicación'."
+        },
+        "brandLogoText": {
+          "background": "var(--gradients-geminiLogo)",
+          "comment": "Gradient style for the main text logo if needed. Uses clip-to-text."
+        },
+        "textSecondary": {
+          "color": "var(--palette-textTertiary)",
+          "comment": "For less prominent text, e.g., 'Según tus sitios (casa)'."
+        }
+      },
+      "buttons": {
+        "signInButton": {
+          "default": {
+            "background": "var(--palette-interactiveBlue)",
+            "text": "var(--palette-textButtonPrimary)",
+            "borderRadius": "var(--effects-borderRadius-pill)"
+          },
+          "hover": {
+            "background": "var(--palette-interactiveBlueHover)"
+          },
+          "comment": "The primary 'Sign in' button on the landing page."
+        },
+        "headerLink": {
+          "default": {
+            "background": "transparent",
+            "text": "var(--palette-textPrimary)",
+            "borderRadius": "var(--effects-borderRadius-medium)"
+          },
+          "hover": {
+            "background": "rgba(255, 255, 255, 0.1)"
+          },
+          "comment": "For navigation links in the header, e.g., 'Company', 'About Lawxia'."
+        },
+        "inputActionButton": {
+          "default": {
+            "background": "var(--palette-componentSubtle)",
+            "text": "var(--palette-textPrimary)",
+            "iconFill": "var(--palette-textPrimary)",
+            "borderRadius": "var(--effects-borderRadius-medium)"
+          },
+          "hover": {
+            "background": "var(--palette-componentSubtleHover)"
+          },
+          "comment": "For chip-style buttons in the prompt input, e.g., 'Upload File'."
+        },
+        "micButton": {
+          "default": {
+            "background": "transparent",
+            "iconFill": "var(--palette-textSecondary)"
+          },
+          "hover": {
+            "background": "var(--palette-componentSubtle)",
+            "iconFill": "var(--palette-textPrimary)"
+          },
+          "comment": "The dedicated microphone icon button in the prompt input."
+        }
+      },
+      "containers": {
+        "landingPageContainer": {
+          "background": "var(--palette-contentBackground)",
+          "borderRadius": "var(--effects-borderRadius-large)",
+          "border": "none",
+          "shadow": "var(--effects-shadows-none)",
+          "comment": "The main container on the landing page holding the branding and sign-in button."
+        },
+        "chatMessage": {
+          "background": "var(--palette-contentBackground)",
+          "borderRadius": "var(--effects-borderRadius-large)",
+          "contentColor": "var(--palette-textPrimary)",
+          "comment": "Styling for individual user or model messages in the chat history."
+        }
+      },
+      "icons": {
+        "defaultIcon": {
+          "fill": "var(--palette-textSecondary)",
+          "comment": "Default color for UI icons in the sidebar, e.g., 'Activity', 'Settings'."
+        },
+        "modelInfoBadge": {
+          "background": "var(--gradients-proBadge)",
+          "comment": "Gradient badge for displaying the current model, e.g., 'Lawxia 1.0'."
+        }
+      },
+      "inputFields": {
+        "promptInput": {
+          "default": {
+            "background": "var(--palette-contentBackground)",
+            "border": "1px solid var(--palette-borderSubtle)",
+            "borderRadius": "var(--effects-borderRadius-pill)",
+            "placeholderTextColor": "var(--palette-textTertiary)"
+          },
+          "focus": {
+            "border": "1px solid var(--palette-focusRing)"
+          },
+          "comment": "The main text input field for the user to type prompts."
+        }
+      },
+      "sidebar": {
+        "container": {
+          "background": "var(--palette-contentBackground)"
+        },
+        "chatHistoryItem": {
+          "default": {
+            "text": "var(--palette-textPrimary)",
+            "icon": "var(--palette-textSecondary)",
+            "background": "transparent"
+          },
+          "hover": {
+            "background": "var(--palette-componentSubtle)"
+          },
+          "comment": "Styling for each recent conversation link in the sidebar."
+        }
+      }
+    }
+  }

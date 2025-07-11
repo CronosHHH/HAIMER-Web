@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import { Space_Mono } from 'next/font/google';
@@ -9,6 +12,23 @@ const spaceMono = Space_Mono({
   style: ['italic', 'normal'],
   variable: '--font-space-mono',
 });
+
+// Texto principal
+const headline = 'Desbloquea la Ley. Domina tus Decisiones.';
+
+// Variantes para animación de aparición letra por letra
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.035,
+    },
+  },
+};
+const charVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.25 } },
+};
 
 export default function LandingPage() {
   return (
@@ -40,3 +60,5 @@ export default function LandingPage() {
     </div>
   );
 }
+// NOTA: Asegúrate de tener el video /videos/oracle-background.mp4 en la carpeta public/videos
+// y de tener instalada la dependencia framer-motion

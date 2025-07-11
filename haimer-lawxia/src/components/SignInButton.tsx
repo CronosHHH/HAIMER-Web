@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { LiquidButton } from '@/components/liquid-glass-button';
 
 export default function SignInButton({ onClick, title }: { onClick?: (e: React.MouseEvent) => void, title?: string }) {
   const router = useRouter();
@@ -14,12 +15,12 @@ export default function SignInButton({ onClick, title }: { onClick?: (e: React.M
   };
 
   return (
-    <button
+    <LiquidButton
       onClick={handleSignIn}
       title={title ?? "Sign in"}
-      className={"bg-black/70 text-white rounded-md px-8 py-3 text-lg font-thin font-sans transition-opacity duration-500 shadow-lg hover:bg-black/80 border border-white/10"}
+      className="px-8 py-3 text-lg font-semibold"
     >
-      Sign in
-    </button>
+      {title ?? 'Sign in'}
+    </LiquidButton>
   );
 } 

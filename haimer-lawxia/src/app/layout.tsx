@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${spaceMono.variable} font-sans antialiased min-h-screen bg-primaryBackground relative overflow-hidden`}>
+      <body className={`${poppins.variable} ${spaceMono.variable} font-sans antialiased min-h-screen bg-primaryBackground relative overflow-x-hidden`}>
         {/* Video de fondo global */}
         <video
           autoPlay

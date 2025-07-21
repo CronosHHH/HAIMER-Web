@@ -26,7 +26,7 @@ export function FeaturesSectionDemo() {
     {
       title: "Claridad Total. Cero Incógnitas.",
       description:
-        "El resultado final es el poder. Las preguntas complejas se convierten en respuestas simples. Las dudas se transforman en decisiones seguras. Te entregamos las reglas del juego para que, por fin, puedas ganarlo.",
+        "Imagina un equipo de expertos dedicados a ti; uno investiga, otro contrasta los hechos y un tercero te lo explica de forma clara y humana.",
       skeleton: <SkeletonFour />,
       className: "col-span-1 lg:col-span-3 border-b lg:border-none",
     },
@@ -92,7 +92,7 @@ const FeatureDescription = ({ children }: { children?: React.ReactNode }) => {
 
 export const SkeletonOne = () => {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center p-6 bg-white dark:bg-neutral-900 shadow-2xl rounded-2xl">
+    <div className="w-full h-full flex flex-col justify-center items-center p-6 bg-black shadow-2xl rounded-2xl">
       <FeatureTitle>Arrastra y Despierta la Inteligencia.</FeatureTitle>
       <FeatureDescription>
         ¿El primer paso? El más fácil. Simplemente arrastra y suelta los documentos clave de tu empresa. En segundos, nuestra IA absorbe tu realidad, entiende tu estructura y se prepara para construir tu fortaleza legal.

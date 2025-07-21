@@ -17,14 +17,14 @@ export function TiltedScroll({
   return (
     <div className={cn("flex items-center justify-center", className)}>
       <div className="relative overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_5rem),linear-gradient(to_left,transparent,black_5rem),linear-gradient(to_bottom,transparent,black_5rem),linear-gradient(to_top,transparent,black_5rem)]">
-        <div className="grid h-[250px] w-[300px] gap-5 animate-skew-scroll grid-cols-1">
+        <div className="grid h-[400px] w-[500px] gap-8 animate-skew-scroll grid-cols-1">
           {items.map((item) => (
             <div
               key={item.id}
-              className="group flex items-center gap-2 cursor-pointer rounded-md border border-border/40 bg-gradient-to-b from-background/80 to-muted/80 p-4 shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-xl dark:border-border"
+              className="group flex items-center gap-4 cursor-pointer rounded-2xl border border-border/40 bg-gradient-to-b from-background/80 to-muted/80 p-8 shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-2xl dark:border-border"
             >
-              <CheckCircleIcon className="h-6 w-6 mr-2 stroke-foreground/40 transition-colors group-hover:stroke-foreground" />
-              <p className="text-foreground/80 transition-colors group-hover:text-foreground">
+              <CheckCircleIcon className="h-10 w-10 mr-4 stroke-foreground/40 transition-colors group-hover:stroke-foreground" />
+              <p className="text-2xl text-foreground/80 transition-colors group-hover:text-foreground font-semibold">
                 {item.text}
               </p>
             </div>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { StagewiseToolbar } from '@stagewise/toolbar-next';
+import ReactPlugin from '@stagewise-plugins/react';
+import StagewiseToolbarClient from '@/components/StagewiseToolbarClient';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -37,10 +40,10 @@ export default function RootLayout({
           className="fixed inset-0 w-full h-full object-cover z-0"
           src="/videos/bubble-bg.mp4"
         />
-        {/* Overlay global, ajustable por página si se requiere */}
-        <div className="fixed inset-0 w-full h-full bg-black/60 backdrop-blur-sm z-10 pointer-events-none" />
         <div className="relative z-20 min-h-screen flex flex-col">
           {children}
+          {/* Stagewise Toolbar only in dev, as a client component */}
+          <StagewiseToolbarClient />
         </div>
       </body>
     </html>

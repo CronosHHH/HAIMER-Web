@@ -1,42 +1,50 @@
 "use client";
 import Sidebar from '@/components/Sidebar';
-import Header from '@/components/Header';
-import ChatMessage from '@/components/ChatMessage';
-import PromptInput from '@/components/PromptInput';
+import { AnimatedAIChat } from "@/components/ui/animated-ai-chat";
 import { useChat } from '@/hooks/useChat';
-import React, { useRef, useEffect } from 'react';
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 export default function MainChatPage() {
-  const { conversations, activeConversation, activeId, sendMessage, startNewConversation, switchConversation } = useChat();
-  const chatEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [activeConversation?.messages.length]);
+  const {
+    conversations,
+    activeConversation,
+    activeId,
+    sendMessage,
+    createConversation,
+    deleteConversation,
+    renameConversation,
+    switchConversation,
+    loading,
+  } = useChat();
 
   return (
-    <div className="min-h-screen bg-primaryBackground text-textPrimary flex">
+    <div className="relative min-h-screen bg-primaryBackground text-textPrimary flex overflow-hidden">
+      {/* Background animado */}
+      <div className="fixed inset-0 -z-10">
+        <BeamsBackground intensity="strong" />
+      </div>
+      {/* Contenido principal del chat y sidebar */}
       <div className="hidden md:flex flex-col w-72 h-screen sticky top-0 left-0 z-10">
         <Sidebar
           conversations={conversations}
-          activeId={activeId}
-          onNewConversation={startNewConversation}
+          activeId={activeId || ''}
+          onNewConversation={createConversation}
           onSelectConversation={switchConversation}
+          deleteConversation={deleteConversation}
+          renameConversation={renameConversation}
         />
       </div>
-      <div className="flex-1 flex flex-col min-h-screen">
-        <Header variant="main" userName="Renato" modelName="Lawxia 1.0" />
-        <main className="flex-1 flex flex-col justify-end max-w-3xl mx-auto w-full px-2 sm:px-6 py-4">
-          <div className="flex-1 overflow-y-auto pb-4 max-h-[calc(100vh-200px)]">
-            {activeConversation?.messages.map(msg => (
-              <ChatMessage key={msg.id} role={msg.role} content={msg.content} />
-            ))}
-            <div ref={chatEndRef} />
-          </div>
-          <PromptInput onSend={sendMessage} />
-        </main>
+      <div className="flex-1 flex flex-col min-h-screen h-screen">
+        {/* Header del chat IA */}
+        <div className="w-full h-6 flex items-center justify-center bg-white/[0.05] rounded-t-2xl border-b border-white/[0.08] text-white/90 text-xs font-sans font-normal z-10 sticky top-0" style={{letterSpacing: 0}}>
+          Considera verificar la información importante.
+        </div>
+        <div className="flex-1 flex w-full min-h-0">
+          <AnimatedAIChat
+            conversation={activeConversation ?? undefined}
+            sendMessage={sendMessage}
+          />
+        </div>
       </div>
     </div>
   );

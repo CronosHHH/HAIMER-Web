@@ -14,8 +14,8 @@ export default function Header({ variant, userName, modelName }: HeaderProps) {
       <header
         className="fixed left-1/2 top-8 z-50 -translate-x-1/2 flex items-center justify-between px-10 py-4 rounded-md w-[min(90vw,900px)] font-thin bg-transparent border border-white/20"
       >
-        <div className="absolute inset-0 z-0 h-full w-full rounded-md shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all"
-          style={{ backdropFilter: 'url("#container-glass")' }}></div>
+        <div className="absolute inset-0 z-0 h-full w-full rounded-md shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] transition-all backdrop-blur-lg backdrop-brightness-110"
+          style={{ backdropFilter: 'url("#container-glass") blur(16px) brightness(1.1)' }}></div>
         {/* SVG filter for glass effect */}
         <svg className="hidden">
           <defs>
@@ -36,16 +36,16 @@ export default function Header({ variant, userName, modelName }: HeaderProps) {
           </defs>
         </svg>
         <div className="relative z-10 flex items-center justify-between w-full">
-          <div className="flex items-center gap-x-6">
-            <Link href="/" className="flex items-center">
-              <img src="/images/lawxia-white-logo.png" alt="Lawxia Logo" className="h-8 w-auto" />
-            </Link>
-            <Link href="/company" className="text-textPrimary hover:bg-white/10 rounded-medium px-4 py-2 transition font-roboto">Company</Link>
-            <Link href="/about-lawxia" className="text-textPrimary hover:bg-white/10 rounded-medium px-4 py-2 transition font-thin">About Lawxia</Link>
-          </div>
-          <Link href="/signin">
-            <LiquidButton className="px-8 py-2 text-lg font-semibold">Sign in</LiquidButton>
+        <div className="flex items-center gap-x-6">
+          <Link href="/" className="flex items-center">
+            <img src="/images/lawxia-white-logo.png" alt="Lawxia Logo" className="h-8 w-auto" />
           </Link>
+          <Link href="/company" className="text-textPrimary hover:bg-white/10 rounded-medium px-4 py-2 transition font-roboto">Company</Link>
+          <Link href="/about-lawxia" className="text-textPrimary hover:bg-white/10 rounded-medium px-4 py-2 transition font-thin">About Lawxia</Link>
+        </div>
+        <Link href="/signin">
+            <LiquidButton className="px-8 py-2 text-lg font-semibold">Sign in</LiquidButton>
+        </Link>
         </div>
       </header>
     );

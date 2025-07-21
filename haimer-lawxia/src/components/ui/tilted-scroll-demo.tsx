@@ -2,11 +2,11 @@ import { TiltedScroll } from "@/components/ui/tilted-scroll";
 
 export function TiltedScrollDemo() {
   const customItems = [
-    { id: "1", text: "Feature One" },
-    { id: "2", text: "Feature Two" },
-    { id: "3", text: "Feature Three" },
-    { id: "4", text: "Feature Four" },
-    { id: "5", text: "Feature Five" },
+    { id: "1", text: "Certeza Oficial" },
+    { id: "2", text: "ADN Legal" },
+    { id: "3", text: "Blindaje Dinámico" },
+    { id: "4", text: "IA Confiable" },
+    { id: "5", text: "Sistema de agentes" },
   ];
 
   return (

@@ -34,7 +34,7 @@ export function FeaturesSectionDemo() {
   return (
     <div className="relative z-20 py-10 lg:py-40 max-w-7xl mx-auto">
       <div className="px-8">
-        <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-black dark:text-white">
+        <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-roboto font-thin text-white">
           Tu ADN Legal: Así Funciona la Magia
         </h4>
       </div>
@@ -70,7 +70,7 @@ const FeatureCard = ({
 
 const FeatureTitle = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <p className="max-w-full break-words mx-auto text-left tracking-tight text-black dark:text-white text-xl md:text-2xl md:leading-snug">
+    <p className="max-w-full break-words mx-auto text-left tracking-tight text-white text-xl md:text-2xl md:leading-snug font-roboto font-thin">
       {children}
     </p>
   );
@@ -81,7 +81,7 @@ const FeatureDescription = ({ children }: { children?: React.ReactNode }) => {
     <p
       className={cn(
         "text-sm md:text-base max-w-full break-words text-left mx-auto",
-        "text-neutral-500 text-center font-normal dark:text-neutral-300",
+        "text-white/80 text-center font-inter font-light",
         "text-left mx-0 md:text-sm my-2"
       )}
     >

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins, Space_Mono } from "next/font/google";
+import { Poppins, Space_Mono, Roboto, Inter } from "next/font/google";
 import "./globals.css";
-import { StagewiseToolbar } from '@stagewise/toolbar-next';
-import ReactPlugin from '@stagewise-plugins/react';
-import StagewiseToolbarClient from '@/components/StagewiseToolbarClient';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,9 +10,21 @@ const poppins = Poppins({
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "700"],
   style: ["italic", "normal"],
   variable: "--font-space-mono",
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700"],
+  variable: "--font-roboto",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -30,20 +39,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${spaceMono.variable} font-sans antialiased min-h-screen bg-primaryBackground relative overflow-x-hidden`}>
+      <body className={`${poppins.variable} ${spaceMono.variable} ${roboto.variable} ${inter.variable} font-sans antialiased min-h-screen bg-primaryBackground relative overflow-x-hidden`}>
         {/* Video de fondo global */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="fixed inset-0 w-full h-full object-cover z-0"
+          className="fixed inset-0 w-full h-full object-cover z-0 pointer-events-none"
           src="/videos/bubble-bg.mp4"
         />
-        <div className="relative z-20 min-h-screen flex flex-col">
+        <div className="relative z-10 min-h-screen flex flex-col">
           {children}
-          {/* Stagewise Toolbar only in dev, as a client component */}
-          <StagewiseToolbarClient />
         </div>
       </body>
     </html>

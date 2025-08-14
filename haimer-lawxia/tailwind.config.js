@@ -34,6 +34,9 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-poppins)', 'sans-serif'],
+        roboto: ['var(--font-roboto)', 'sans-serif'],
+        'space-mono': ['var(--font-space-mono)', 'monospace'],
+        inter: ['var(--font-inter)', 'sans-serif'],
       },
     },
   },

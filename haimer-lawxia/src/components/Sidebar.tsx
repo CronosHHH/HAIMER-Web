@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import ChatItem from './ChatItem';
 import { Conversation } from '@/hooks/useChat';
-import { MessageSquare, Activity, Settings, PlusIcon, User, Briefcase, Trash2, Pencil } from "lucide-react";
+import { MessageSquare, Activity, Settings, PlusIcon, User, Briefcase, Trash2, Pencil, X } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import { auth } from "@/services/firebase";
 
@@ -11,9 +11,10 @@ interface SidebarProps {
   activeId: string;
   onNewConversation: () => void;
   onSelectConversation: (id: string) => void;
+  onClose?: () => void;
 }
 
-export default function Sidebar({ conversations, activeId, onNewConversation, onSelectConversation, deleteConversation, renameConversation }: SidebarProps & { deleteConversation: (id: string) => void, renameConversation: (id: string, title: string) => void }) {
+export default function Sidebar({ conversations, activeId, onNewConversation, onSelectConversation, deleteConversation, renameConversation, onClose }: SidebarProps & { deleteConversation: (id: string) => void, renameConversation: (id: string, title: string) => void }) {
   const [userName, setUserName] = useState("Usuario");
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -35,34 +36,44 @@ export default function Sidebar({ conversations, activeId, onNewConversation, on
   }, []);
   const router = useRouter();
   return (
-    <aside className="flex flex-col h-full w-72 p-4 bg-transparent rounded-2xl border border-white/[0.05] shadow-2xl text-white/90 backdrop-blur-2xl bg-white/[0.02]">
+    <aside className="flex flex-col h-full w-full p-3 sm:p-4 bg-transparent rounded-2xl border border-white/[0.05] shadow-2xl text-white/90 backdrop-blur-2xl bg-white/[0.02] relative">
+      {/* Botón de cerrar para móviles */}
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="md:hidden absolute top-2 right-2 p-1.5 text-white/70 hover:text-white transition-colors z-10"
+          aria-label="Cerrar sidebar"
+        >
+          <X size={18} />
+        </button>
+      )}
       {/* Perfil de usuario */}
-      <div className="flex items-center gap-3 mb-4 font-sans">
-        <div className="w-12 h-12 flex items-center justify-center rounded-full bg-white/[0.05] backdrop-blur-lg overflow-hidden">
+      <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 font-sans mt-1">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/[0.05] backdrop-blur-lg overflow-hidden">
           {userPhoto ? (
-            <img src={userPhoto} alt="Foto de perfil" className="w-12 h-12 object-cover rounded-full" />
+            <img src={userPhoto} alt="Foto de perfil" className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-full" />
           ) : (
-            <User className="w-7 h-7 text-white/90" />
+            <User className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
           )}
         </div>
-        <span className="text-base font-normal text-white/90">{userName}</span>
+        <span className="text-sm sm:text-base font-normal text-white/90">{userName}</span>
       </div>
       <div className="border-t border-white/[0.08] my-3" />
       {/* Card de empresa */}
       <div
-        className="flex flex-col items-center justify-center mb-4 bg-white/[0.05] rounded-lg font-sans w-full aspect-[2/1] min-h-[36px] min-w-[72px] cursor-pointer transition hover:bg-white/[0.08]"
+        className="flex flex-col items-center justify-center mb-3 sm:mb-4 bg-white/[0.05] rounded-lg font-sans w-full aspect-[2/1] min-h-[36px] min-w-[72px] cursor-pointer transition hover:bg-white/[0.08]"
         onClick={() => router.push('/company-dashboard')}
         tabIndex={0}
         role="button"
         aria-label="Ir a panel de empresa"
       >
-        <Briefcase className="w-10 h-10 text-white/90 mb-2" />
-        <span className="text-base font-normal text-white/90">Mi empresa</span>
+        <Briefcase className="w-8 h-8 sm:w-10 sm:h-10 text-white/90 mb-1 sm:mb-2" />
+        <span className="text-sm sm:text-base font-normal text-white/90">Mi empresa</span>
       </div>
-      <div className="border-t border-white/[0.08] my-3" />
+      <div className="border-t border-white/[0.08] my-2 sm:my-3" />
       {/* Botón Nueva conversación */}
       <button
-        className="flex items-center gap-2 px-3 py-2 mb-4 bg-white/[0.05] hover:bg-white/[0.10] rounded-lg text-white/90 text-sm font-medium transition-all"
+        className="flex items-center gap-2 px-2 sm:px-3 py-2 mb-3 sm:mb-4 bg-white/[0.05] hover:bg-white/[0.10] rounded-lg text-white/90 text-xs sm:text-sm font-medium transition-all"
         onClick={onNewConversation}
       >
         <PlusIcon className="w-4 h-4" />
@@ -92,6 +103,8 @@ export default function Sidebar({ conversations, activeId, onNewConversation, on
                     onChange={e => setEditTitle(e.target.value)}
                     autoFocus
                     onBlur={() => setEditingId(null)}
+                    aria-label="Editar título de la conversación"
+                    placeholder="Nuevo título"
                   />
                   <button type="submit" className="text-xs text-white/70 px-2">OK</button>
                 </form>

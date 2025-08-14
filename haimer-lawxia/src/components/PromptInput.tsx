@@ -22,30 +22,36 @@ export default function PromptInput({ onSend }: { onSend?: (value: string) => vo
   };
 
   return (
-    <div className="flex items-end gap-2 p-4 bg-contentBackground rounded-large">
-      <Button variant="inputAction" className="flex-shrink-0">
-        <label htmlFor="file-upload" className="cursor-pointer">
-          <input id="file-upload" type="file" className="hidden" title="Subir archivo" />
-          <span>Subir archivo</span>
-        </label>
-      </Button>
-      <textarea
-        ref={textareaRef}
-        className="flex-1 resize-none bg-contentBackground border border-borderSubtle rounded-pill px-4 py-2 text-textPrimary placeholder-textTertiary focus:border-focusRing outline-none transition min-h-[40px] max-h-[120px]"
-        rows={1}
-        placeholder="Escribe tu mensaje..."
-        aria-label="Campo de mensaje"
-        title="Campo de mensaje"
-        value={value}
-        onChange={handleInput}
-        onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-      />
-      <Button variant="mic" className="flex-shrink-0">
-        <span role="img" aria-label="Mic">🎤</span>
-      </Button>
-      <Button variant="signIn" className="flex-shrink-0 px-4 py-2" onClick={handleSend}>
-        Enviar
-      </Button>
+    <div className="flex flex-col sm:flex-row items-end gap-2 p-3 sm:p-4 bg-contentBackground rounded-large">
+      <div className="flex items-center gap-2 w-full sm:w-auto mb-2 sm:mb-0">
+        <Button variant="inputAction" className="flex-shrink-0 text-xs sm:text-sm">
+          <label htmlFor="file-upload" className="cursor-pointer">
+            <input id="file-upload" type="file" className="hidden" title="Subir archivo" />
+            <span className="hidden sm:inline">Subir archivo</span>
+            <span className="sm:hidden">📎</span>
+          </label>
+        </Button>
+        <Button variant="mic" className="flex-shrink-0 text-xs sm:text-sm">
+          <span role="img" aria-label="Mic">🎤</span>
+        </Button>
+      </div>
+      <div className="flex items-end gap-2 w-full">
+        <textarea
+          ref={textareaRef}
+          className="flex-1 resize-none bg-contentBackground border border-borderSubtle rounded-pill px-3 sm:px-4 py-2 text-textPrimary placeholder-textTertiary focus:border-focusRing outline-none transition min-h-[40px] max-h-[120px] text-sm sm:text-base"
+          rows={1}
+          placeholder="Escribe tu mensaje..."
+          aria-label="Campo de mensaje"
+          title="Campo de mensaje"
+          value={value}
+          onChange={handleInput}
+          onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+        />
+        <Button variant="signIn" className="flex-shrink-0 px-3 sm:px-4 py-2 text-xs sm:text-sm" onClick={handleSend}>
+          <span className="hidden sm:inline">Enviar</span>
+          <span className="sm:hidden">➤</span>
+        </Button>
+      </div>
     </div>
   );
 } 

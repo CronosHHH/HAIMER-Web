@@ -18,7 +18,7 @@ export default function SignInButton({ onClick, title }: { onClick?: (e: React.M
     <LiquidButton
       onClick={handleSignIn}
       title={title ?? "Sign in"}
-      className="px-8 py-3 text-lg font-semibold"
+      className="px-8 py-3 text-lg font-poppins font-thin"
     >
       {title ?? 'Sign in'}
     </LiquidButton>

@@ -15,7 +15,7 @@ interface ScrollExpandMediaProps {
   mediaType?: 'video' | 'image';
   mediaSrc: string;
   posterSrc?: string;
-  bgImageSrc: string;
+  bgImageSrc?: string;
   title?: string;
   date?: string;
   scrollToExpand?: string;
@@ -181,18 +181,20 @@ const ScrollExpandMedia = ({
             animate={{ opacity: 1 - scrollProgress }}
             transition={{ duration: 0.1 }}
           >
-            <Image
-              src={bgImageSrc}
-              alt='Background'
-              width={1920}
-              height={1080}
-              className='w-screen h-screen'
-              style={{
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-              priority
-            />
+            {bgImageSrc && bgImageSrc.trim() !== '' && (
+              <Image
+                src={bgImageSrc}
+                alt='Background'
+                width={1920}
+                height={1080}
+                className='w-screen h-screen'
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+                priority
+              />
+            )}
             <div className='absolute inset-0 bg-black/10' />
           </motion.div>
 
@@ -244,7 +246,7 @@ const ScrollExpandMedia = ({
                     <div className='relative w-full h-full pointer-events-none'>
                       <video
                         src={mediaSrc}
-                        poster={posterSrc}
+                        {...(posterSrc && posterSrc.trim() !== '' ? { poster: posterSrc } : {})}
                         autoPlay
                         muted
                         loop
@@ -290,7 +292,7 @@ const ScrollExpandMedia = ({
                 <div className='flex flex-col items-center text-center relative z-10 mt-4 transition-none'>
                   {date && (
                     <p
-                      className='text-2xl text-blue-200'
+                      className='text-2xl text-blue-200 font-roboto font-thin'
                       style={{ transform: `translateX(-${textTranslateX}vw)` }}
                     >
                       {date}
@@ -298,7 +300,7 @@ const ScrollExpandMedia = ({
                   )}
                   {scrollToExpand && (
                     <p
-                      className='text-blue-200 font-medium text-center'
+                      className='text-blue-200 font-roboto font-thin text-center'
                       style={{ transform: `translateX(${textTranslateX}vw)` }}
                     >
                       {scrollToExpand}
@@ -313,13 +315,13 @@ const ScrollExpandMedia = ({
                 }`}
               >
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-blue-200 transition-none'
+                  className='text-4xl md:text-5xl lg:text-6xl font-space-mono font-bold italic text-blue-200 transition-none'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {firstWord}
                 </motion.h2>
                 <motion.h2
-                  className='text-4xl md:text-5xl lg:text-6xl font-bold text-center text-blue-200 transition-none'
+                  className='text-4xl md:text-5xl lg:text-6xl font-space-mono font-bold italic text-center text-blue-200 transition-none'
                   style={{ transform: `translateX(${textTranslateX}vw)` }}
                 >
                   {restOfTitle}

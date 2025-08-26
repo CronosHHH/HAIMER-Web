@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { auth } from '@/services/firebase'
+import type { Variants, Transition } from 'framer-motion'
 
 const transitionVariants = {
     item: {
@@ -23,10 +24,10 @@ const transitionVariants = {
                 type: 'spring',
                 bounce: 0.3,
                 duration: 1.5,
-            },
+            } as Transition,
         },
     },
-}
+} satisfies { item: Variants }
 
 export function HeroSection() {
     const router = useRouter()
@@ -65,7 +66,7 @@ export function HeroSection() {
                                     visible: {
                                         transition: {
                                             delayChildren: 1,
-                                        },
+                                        } as Transition,
                                     },
                                 },
                                 item: {
@@ -80,7 +81,7 @@ export function HeroSection() {
                                             type: 'spring',
                                             bounce: 0.3,
                                             duration: 2,
-                                        },
+                                        } as Transition,
                                     },
                                 },
                             }}
@@ -132,7 +133,7 @@ export function HeroSection() {
                                                 transition: {
                                                     staggerChildren: 0.05,
                                                     delayChildren: 0.75,
-                                                },
+                                                } as Transition,
                                             },
                                         },
                                         ...transitionVariants,
@@ -169,7 +170,7 @@ export function HeroSection() {
                                         transition: {
                                             staggerChildren: 0.05,
                                             delayChildren: 0.75,
-                                        },
+                                        } as Transition,
                                     },
                                 },
                                 ...transitionVariants,

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { Space_Mono } from 'next/font/google';
 import SignInButton from '@/components/SignInButton';
+import { useAuth } from '@/hooks/useAuth';
 
 const spaceMono = Space_Mono({
   subsets: ['latin'],
@@ -31,6 +32,8 @@ const charVariants = {
 };
 
 export default function LandingPage() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="min-h-screen flex flex-col bg-primaryBackground relative overflow-hidden">
       {/* Header flotante, siempre visible */}
@@ -41,11 +44,10 @@ export default function LandingPage() {
           <p className={`text-xl text-white/90 mb-8 text-center italic font-space-mono`}>
             "La ley es razón libre de pasión."— Aristóteles
           </p>
-          <SignInButton title="Iniciar sesión" />
+          <SignInButton title={isAuthenticated ? "Ir al Chat" : "Iniciar sesión"} />
         </section>
       </main>
     </div>
   );
 }
 // NOTA: Asegúrate de tener el video /videos/oracle-background.mp4 en la carpeta public/videos
-// y de tener instalada la dependencia framer-motion

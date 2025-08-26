@@ -3,16 +3,24 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Header from '@/components/Header';
 import SignInButton from '@/components/SignInButton';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function AnimatedLandingContent({ children }: { children: React.ReactNode }) {
   const [fade, setFade] = useState(false);
   const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { isAuthenticated } = useAuth();
 
   const handleSignIn = (e: React.MouseEvent) => {
     setFade(true);
     setTimeout(() => {
-      router.push("/signin");
+      if (isAuthenticated) {
+        // Si ya está autenticado, redirigir al chat principal
+        router.push('/chat/main');
+      } else {
+        // Si no está autenticado, ir a la página de signin
+        router.push("/signin");
+      }
     }, 500);
   };
 

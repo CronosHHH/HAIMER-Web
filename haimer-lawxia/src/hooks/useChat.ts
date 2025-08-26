@@ -29,10 +29,26 @@ export interface Conversation {
 
 const initialConversations: Conversation[] = [];
 
+// Función para generar IDs únicos de mensajes
+const generateMessageId = (conversationId: string, timestamp: number, index: number): string => {
+  return `${conversationId}-msg-${timestamp}-${index}`;
+};
+
+// Función para limpiar mensajes duplicados
+const cleanDuplicateMessages = (messages: Message[]): Message[] => {
+  const seen = new Set<string>();
+  return messages.filter(msg => {
+    if (seen.has(msg.id)) {
+      return false;
+    }
+    seen.add(msg.id);
+    return true;
+  });
+};
+
 export function useChat() {
   const [conversations, setConversations] = useState<Conversation[]>(initialConversations);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [msgCounter, setMsgCounter] = useState(100);
   const [pendingConversation, setPendingConversation] = useState<Conversation | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -48,10 +64,22 @@ export function useChat() {
           const loaded: Conversation[] = [];
           snapshot.forEach(docSnap => {
             const data = docSnap.data();
+            // Asegurar que los mensajes tengan IDs únicos
+            const messages = (data.messages || []).map((msg: Message, index: number) => {
+              if (!msg.id || msg.id.startsWith('msg-')) {
+                // Regenerar ID si es inválido o usa el formato antiguo
+                return {
+                  ...msg,
+                  id: generateMessageId(docSnap.id, Date.now(), index)
+                };
+              }
+              return msg;
+            });
+            
             loaded.push({
               id: docSnap.id,
               title: data.title,
-              messages: data.messages || [],
+              messages: cleanDuplicateMessages(messages),
               hasUserMessage: data.hasUserMessage || false,
               createdAt: data.createdAt,
             });
@@ -138,6 +166,7 @@ export function useChat() {
   const sendMessage = async (content: string) => {
     let conv = activeConversation;
     let convId = activeId;
+    
     // Si no hay conversación activa, crea una nueva
     if (!conv) {
       const user = auth.currentUser;
@@ -155,39 +184,43 @@ export function useChat() {
       setActiveId(convId);
       conv = newConv;
     }
-    setMsgCounter(cnt => {
-      const newMessage: Message = {
-        id: `msg-${cnt}`,
-        role: 'user',
-        content,
+
+    // Generar IDs únicos para los mensajes
+    const timestamp = Date.now();
+    const currentMessageCount = conv?.messages?.length || 0;
+    
+    const newMessage: Message = {
+      id: generateMessageId(convId!, timestamp, currentMessageCount),
+      role: 'user',
+      content,
+    };
+    
+    const modelMessage: Message = {
+      id: generateMessageId(convId!, timestamp, currentMessageCount + 1),
+      role: 'model',
+      content: 'Respuesta automática de Lawxia.',
+    };
+
+    if (pendingConversation && pendingConversation.id === convId) {
+      // Primera vez que se escribe en la conversación
+      const newConv: Conversation = {
+        ...pendingConversation,
+        messages: cleanDuplicateMessages([newMessage, modelMessage]),
+        hasUserMessage: true,
       };
-      const modelMessage: Message = {
-        id: `msg-${cnt + 1}`,
-        role: 'model',
-        content: 'Respuesta automática de Lawxia.',
-      };
-      if (pendingConversation && pendingConversation.id === convId) {
-        // Primera vez que se escribe en la conversación
-        const newConv: Conversation = {
-          ...pendingConversation,
-          messages: [newMessage, modelMessage],
-          hasUserMessage: true,
-        };
-        setDoc(doc(db, 'users', auth.currentUser!.uid, 'conversations', newConv.id), {
-          ...newConv,
-          createdAt: serverTimestamp(),
-        });
-        setPendingConversation(null);
-      } else {
-        // Actualizar conversación existente
-        const updatedMessages = [...(conv?.messages || []), newMessage, modelMessage];
-        updateDoc(doc(db, 'users', auth.currentUser!.uid, 'conversations', convId!), {
-          messages: updatedMessages,
-          hasUserMessage: true,
-        });
-      }
-      return cnt + 2;
-    });
+      await setDoc(doc(db, 'users', auth.currentUser!.uid, 'conversations', newConv.id), {
+        ...newConv,
+        createdAt: serverTimestamp(),
+      });
+      setPendingConversation(null);
+    } else {
+      // Actualizar conversación existente
+      const updatedMessages = cleanDuplicateMessages([...(conv?.messages || []), newMessage, modelMessage]);
+      await updateDoc(doc(db, 'users', auth.currentUser!.uid, 'conversations', convId!), {
+        messages: updatedMessages,
+        hasUserMessage: true,
+      });
+    }
   };
 
   // Cambiar de conversación activa

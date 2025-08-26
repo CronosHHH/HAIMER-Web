@@ -121,7 +121,7 @@ export function HeroSection() {
                                     </h1>
                                     <p
                                         className="mx-auto mt-8 max-w-3xl text-balance text-lg font-inter font-light">
-                                        Sistema inteligente que analiza automáticamente las leyes aplicables a tu empresa, genera tareas de cumplimiento y emite tokens verificables en blockchain. Garantiza transparencia y cumplimiento continuo.
+                                        Sistema inteligente que analiza automáticamente las leyes aplicables a tu empresa, genera tareas de cumplimiento y crea un perfil de su empresa que se actualiza a la par que el BOE, garantizando transparencia y cumplimiento continuo.
                                     </p>
                                 </AnimatedGroup>
 

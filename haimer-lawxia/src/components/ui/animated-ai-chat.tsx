@@ -229,24 +229,41 @@ export function AnimatedAIChat({ conversation, sendMessage }: { conversation?: C
                 </motion.div>
               )}
             </AnimatePresence>
-            {conversation && conversation.messages.length > 0 && conversation.messages.map((msg, i) => (
-              msg.role === 'user' ? (
-                <div
+            {conversation && conversation.messages.length > 0 && conversation.messages
+              .filter((msg, index, arr) => {
+                // Filtrar mensajes duplicados por ID
+                return arr.findIndex(m => m.id === msg.id) === index;
+              })
+              .map((msg, i) => {
+              // Asegurar que el mensaje tenga un ID válido
+              if (!msg.id) {
+                console.warn('Message without ID:', msg);
+                return null;
+              }
+              
+              return msg.role === 'user' ? (
+                <motion.div
                   key={msg.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.1 }}
                   className="self-end bg-white/10 text-white px-2 py-1.5 rounded-lg shadow w-fit min-w-[35%] max-w-[80%] text-right text-xs"
                 >
                   {msg.content}
-                </div>
+                </motion.div>
               ) : (
-                <div
+                <motion.div
                   key={msg.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.1 }}
                   className="self-start w-full text-left text-sm font-normal text-white/90 px-1 py-0.5"
                   style={{background: 'none', borderRadius: 0, boxShadow: 'none'}}
                 >
                   {msg.content}
-                </div>
-              )
-            ))}
+                </motion.div>
+              );
+            }).filter(Boolean)}
             {/* Elemento invisible para hacer scroll al final */}
             <div ref={messagesEndRef} />
           </div>
